@@ -5,7 +5,7 @@
     /* text */
     font-family: 'Schoolbell', cursive;
     letter-spacing: 0.03em;
-    font-size: 1.2em;
+    font-size: 1.15em;
     color: var(--primary-color);
 }
 :root {
@@ -24,22 +24,25 @@ body {
     height: 100vh;
     background-color: var(--background-color);
 }
-.container {
-    width: 80%;
-    height: auto;
-
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    justify-content: center;
-    align-items: center;
-}
-
-.camera-container {
+.col{
     display: flex;
     flex-direction: column;
-    text-align: center;
+    align-items: center;
+    justify-content: center;
 }
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.photobooth-container {
+    width: 80%;
+    height: auto;
+    gap: 30px;
+}
+
 #video {
     background-color: var(--white-color);
     border: 2px solid var(--primary-color);
@@ -49,22 +52,25 @@ body {
     height: 320px;
     margin: 25px;
 }
-#capture-btn {
+
+#control {
+    gap: 15px;
+}
+.btn {
     background-color: var(--primary-color);
     color: white;
     border: none;
     border-radius: 5px;
 
-    max-width: 200px;
+    max-width: 250px;
     padding: 10px 20px;
     margin-bottom: 15px;
-    align-self: center;
 
-    font-size: 0.7em;
+    font-size: 0.6em;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
-#capture-btn:hover {
+.btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -72,20 +78,16 @@ body {
 #photo-container{
     align-items: center;
     background-color: var(--white-color);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 260px;
     height: 560px;
     margin: 0 30px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 #photo-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: var(--white-color);
     gap: 12px;
     padding: 15px;
     overflow-y: auto;
-
-    background-color: var(--white-color);
 }
 #photo-list img {
     width: 213px;

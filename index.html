@@ -8,11 +8,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="camera-container">
+    <div class="photobooth-container row">
+        <div class="camera-container col">
             <h2 class="title">Smile sweetheart <3</h2>
             <video id="video" autoplay inline></video>
-            <button id="capture-btn">Capture</button>
+            <div id="control" class="row">
+                <button id="capture-btn" class="btn">Capture</button>
+            </div>
         </div>
 
         <div id="photo-container">
