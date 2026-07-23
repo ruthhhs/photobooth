@@ -8,17 +8,29 @@
     <link href="https://fonts.googleapis.com/css2?family=Schoolbell&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="photobooth-container row">
-        <div class="camera-container col">
-            <h2 class="title">Smile sweetheart <3</h2>
-            <video id="video" autoplay inline></video>
-            <div id="control" class="row">
-                <button id="capture-btn" class="btn">Capture</button>
+    <div id="wrapper">
+        <div id="pages">
+            <div id="camera-page" class="page">
+                <h1 id="comment">Smile sweetheart <3</h1>
+                <video id="video" autoplay inline></video>
+                <div id="control">
+                    <button id="capture-btn" class="btn">Take photo</button>
+                </div>
+            </div>
+    
+            <div id="costumize-page" class="page">
+                <button id="back-btn" class="btn">Back</button>
+
+                <input id="pickColor" type="color" value="rgb(246, 247, 242)"/>
+
+                <button id="download-btn" class="btn">Download here !</button>
             </div>
         </div>
 
-        <div id="photo-container">
-            <div id="photo-list"></div>
+        <div class="fixed">
+            <div id="photo-container">
+                <div id="photo-list"></div>
+            </div>
         </div>
     </div>
 

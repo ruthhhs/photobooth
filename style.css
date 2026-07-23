@@ -1,46 +1,57 @@
-*{
-    margin: 0;
-    padding: 0;
-
-    /* text */
-    font-family: 'Schoolbell', cursive;
-    letter-spacing: 0.03em;
-    font-size: 1.15em;
-    color: var(--primary-color);
-}
 :root {
     --primary-color: darkolivegreen;
-    --secondary-color: pink;
+    --secondary-color: rgb(245, 158, 158);
     --background-color: #fae8e8;
     --white-color: rgb(246, 247, 242);
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+*{
+    margin: 0%;
+    padding: 0%;
 
-    height: 100vh;
+    font-family: 'Schoolbell', cursive;
+    letter-spacing: 0.03em;
+    color: var(--primary-color);
+}
+h1, h2, h3{
+    font-size: 30px;
+}
+p, button{
+    font-size: 16px;
+}
+html, body {
+    width: 100%;
+    height: 100%;
     background-color: var(--background-color);
 }
-.col{
+
+#wrapper{
+    display: flex;
+    width: 80%;
+    height: 100vh;
+    padding: 0 10%;
+    overflow: hidden;
+}
+.fixed{
+    flex: 4;
+    display: flex;
+    align-items: center;
+}
+#pages{
+    flex: 6;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    transition: transform 0.75s ease;
+}
+.page {
+    flex: 0 0 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-.row{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-}
-
-.photobooth-container {
-    width: 80%;
-    height: auto;
-    gap: 30px;
+    padding-top: 10%;
+    /* justify-content: start; */
 }
 
 #video {
@@ -52,8 +63,11 @@ body {
     height: 320px;
     margin: 25px;
 }
-
 #control {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     gap: 15px;
 }
 .btn {
@@ -66,7 +80,6 @@ body {
     padding: 10px 20px;
     margin-bottom: 15px;
 
-    font-size: 0.6em;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
@@ -80,17 +93,36 @@ body {
     background-color: var(--white-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     width: 260px;
-    height: 560px;
+    height: 570px;
     margin: 0 30px;
 }
 #photo-list {
-    background-color: var(--white-color);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 12px;
-    padding: 15px;
-    overflow-y: auto;
+    padding-top: 18px;
+    background-color: var(--white-color);
 }
 #photo-list img {
     width: 213px;
     height: 160px;
-    object-fit: cover;
+}
+
+input[type="color"] {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    background: none;
+}
+input[type="color"]::-webkit-color-swatch {
+    border: 5px solid var(--primary-color);
+    border-radius: 50%;
+    /* color: var(--white-color); */
+}
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
 }
