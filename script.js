@@ -5,20 +5,21 @@ const countdown = document.getElementById('countdown');
 const captureBtn = document.getElementById('capture-btn');
 const photoContainer = document.getElementById('photo-container');
 const photoList = document.getElementById('photo-list');
+const photos = document.querySelectorAll('.photo');
 const comment = document.getElementById('comment');
 const pages = document.getElementById('pages');
 const backBtn = document.getElementById('back-btn');
 const downloadBtn = document.getElementById('download-btn');
 
-const resetColor = "rgb(246, 247, 242)";
+let resetColor = "#f6f7f2";
 let currentPage = 0;
 
 startCamera();
-let photosPerSession = 3;
+let photosPerSession = 0; // increment to 3
 
 captureBtn.addEventListener("click", () => {
-    if (photosPerSession > 0) {
-        let timer = 3;
+    if (photosPerSession < 3) {
+        let timer = 1;
         countdown.textContent = timer;
         const interval = setInterval( () => {
             timer--;
@@ -27,8 +28,9 @@ captureBtn.addEventListener("click", () => {
             if (timer === 0){
                 clearInterval(interval);
                 createPhoto();
-                photosPerSession--;
-                if (photosPerSession === 0) { sessionEnd(); }
+                photosPerSession++;
+
+                if (photosPerSession === 3) { sessionEnd(); }
             }
         }, 1000);   // notes: setInterval( func(), 1000 ) --> 1000ms == 1s
     }
@@ -61,14 +63,9 @@ function createPhoto(){
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    // create image
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const dataURL = canvas.toDataURL("image/png");
-
-    // listing images into photo-list
-    const img = document.createElement('img');
-    img.src = dataURL;
-    photoList.appendChild(img);
+    context.scale(-1, 1); // mirror
+    context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+    photos[photosPerSession].src = canvas.toDataURL();
 }
 function sessionEnd(){
     captureBtn.style.display = "none";
@@ -86,29 +83,31 @@ function sessionEnd(){
     btn2.innerText = "No, I'll retake";
     btn2.onclick = () => resetSession();
 
-    control.appendChild(btn1);
     control.appendChild(btn2);
+    control.appendChild(btn1);
 
-    comment.textContent='Great! Would you like to costumize?';
+    comment.textContent=' Would you like to costumize?';
 }
 function goToPage(page){
     currentPage = page;
     pages.style.transform = `translateY(-${currentPage * pages.clientHeight}px)`;
 }
 function resetSession() {
-    photosPerSession = 3;
+    photosPerSession = 0;
     captureBtn.style.display = "block";
+    countdown.style.display = "block";
 
     document.getElementById("costumizeBtn")?.remove();
     document.getElementById("refreshBtn")?.remove();
-    document.getElementById("pickColor")?.remove();
-    document.getElementById("photo-list").innerHTML = "";
-
-    comment.textContent='Smile sweetheart <3';
 
     photoContainer.style.backgroundColor = resetColor;
     photoList.style.backgroundColor = resetColor;
-    colorPicker.value = resetColor;
+    pickColor.value = resetColor;
+    photos.forEach(photo => {
+        photo.src = "./assets/noimg.png";
+    });
+
+    comment.textContent='Smile sweetheart <3';
 }
 function downloadPhoto() {
     html2canvas(document.getElementById("photo-container"))
