@@ -1,6 +1,7 @@
 // variables
 const video = document.getElementById('video');
 const control = document.getElementById('control');
+const countdown = document.getElementById('countdown');
 const captureBtn = document.getElementById('capture-btn');
 const photoContainer = document.getElementById('photo-container');
 const photoList = document.getElementById('photo-list');
@@ -17,29 +18,19 @@ let photosPerSession = 3;
 
 captureBtn.addEventListener("click", () => {
     if (photosPerSession > 0) {
-        createPhoto();
-        photosPerSession--;
+        let timer = 3;
+        countdown.textContent = timer;
+        const interval = setInterval( () => {
+            timer--;
+            countdown.textContent = timer;
 
-        if (photosPerSession === 0) {
-            captureBtn.style.display = "none";
-
-            const btn1 = document.createElement('button');
-            btn1.id = 'costumizeBtn';
-            btn1.className = 'btn';
-            btn1.innerText = 'Yes abseloutly!';
-            btn1.onclick = () => goToPage(currentPage + 1);
-            
-            const btn2 = document.createElement('button');
-            btn2.id = 'refreshBtn';
-            btn2.className = 'btn';
-            btn2.innerText = "No, I'll retake";
-            btn2.onclick = () => resetSession();
-
-            control.appendChild(btn1);
-            control.appendChild(btn2);
-
-            comment.textContent='Great! Would you like to costumize?';
-        }
+            if (timer === 0){
+                clearInterval(interval);
+                createPhoto();
+                photosPerSession--;
+                if (photosPerSession === 0) { sessionEnd(); }
+            }
+        }, 1000);   // notes: setInterval( func(), 1000 ) --> 1000ms == 1s
     }
 });
 
@@ -78,6 +69,27 @@ function createPhoto(){
     const img = document.createElement('img');
     img.src = dataURL;
     photoList.appendChild(img);
+}
+function sessionEnd(){
+    captureBtn.style.display = "none";
+    countdown.style.display = "none";
+    
+    const btn1 = document.createElement('button');
+    btn1.id = 'costumizeBtn';
+    btn1.className = 'btn';
+    btn1.innerText = 'Yes abseloutly!';
+    btn1.onclick = () => goToPage(currentPage + 1);
+    
+    const btn2 = document.createElement('button');
+    btn2.id = 'refreshBtn';
+    btn2.className = 'btn';
+    btn2.innerText = "No, I'll retake";
+    btn2.onclick = () => resetSession();
+
+    control.appendChild(btn1);
+    control.appendChild(btn2);
+
+    comment.textContent='Great! Would you like to costumize?';
 }
 function goToPage(page){
     currentPage = page;
