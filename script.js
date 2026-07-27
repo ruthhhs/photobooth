@@ -5,6 +5,7 @@ const countdown = document.getElementById('countdown');
 const captureBtn = document.getElementById('capture-btn');
 const photoContainer = document.getElementById('photo-container');
 const photoList = document.getElementById('photo-list');
+const photoFrame = document.querySelectorAll('photo-frame');
 const photos = document.querySelectorAll('.photo');
 const comment = document.getElementById('comment');
 const pages = document.getElementById('pages');
@@ -44,6 +45,16 @@ pickColor.addEventListener("input", (e) => {
     photoContainer.style.backgroundColor = color;
     photoList.style.backgroundColor = color;
 });
+
+const frameNone = document.getElementById('frame-none');
+frameNone.onclick = () => frameClear();
+
+const frame01 = document.getElementById('frame01');
+const frame02 = document.getElementById('frame02');
+const frame03 = document.getElementById('frame03');
+frame01.onclick = () => frameTemplate('./assets/fr01.png');
+frame02.onclick = () => frameTemplate('./assets/fr02.png');
+frame03.onclick = () => frameTemplate('./assets/fr03.png');
 
 // ===== FUNCTIONS =====
 
@@ -100,14 +111,29 @@ function resetSession() {
     document.getElementById("costumizeBtn")?.remove();
     document.getElementById("refreshBtn")?.remove();
 
-    photoContainer.style.backgroundColor = resetColor;
-    photoList.style.backgroundColor = resetColor;
-    pickColor.value = resetColor;
+    frameClear();
     photos.forEach(photo => {
         photo.src = "./assets/noimg.png";
     });
 
     comment.textContent='Smile sweetheart <3';
+}
+function frameClear() {
+    document.getElementById("photo-frame")?.remove();
+
+    photoContainer.style.backgroundColor = resetColor;
+    photoList.style.backgroundColor = resetColor;
+    pickColor.value = resetColor;
+}
+function frameTemplate(imgsrc) {
+    document.getElementById("photo-frame")?.remove();
+
+    const frame = document.createElement("img");
+    frame.id = 'photo-frame';
+    frame.className = 'photo-frame';
+    frame.src = imgsrc;
+
+    photoContainer.appendChild(frame);
 }
 function downloadPhoto() {
     html2canvas(document.getElementById("photo-container"))
